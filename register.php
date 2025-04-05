@@ -1,0 +1,75 @@
+<?php
+session_start();
+
+// If user is already logged in, redirect
+if (isset($_SESSION['user'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
+// Load existing users
+$users = [];
+if (file_exists("data/users.json")) {
+    $users = json_decode(file_get_contents("data/users.json"), true);
+}
+
+$errors = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+
+    // Simple validation
+    if ($username === '' || $password === '') {
+        $errors[] = "Username and password are required.";
+    }
+
+    // Check if username exists
+    foreach ($users as $user) {
+        if ($user['username'] === $username) {
+            $errors[] = "Username already taken.";
+            break;
+        }
+    }
+
+    if (empty($errors)) {
+        $newUser = [
+            "id" => count($users) + 1,
+            "username" => $username,
+            "password" => $password // For practice (no hash)
+        ];
+        $users[] = $newUser;
+        file_put_contents("data/users.json", json_encode($users, JSON_PRETTY_PRINT));
+        header("Location: login.php");
+        exit;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h2>Register</h2>
+
+<?php
+foreach ($errors as $error) {
+    echo "<p style='color:red;'>$error</p>";
+}
+?>
+
+<form method="POST">
+    <label>Username:</label><br>
+    <input type="text" name="username"><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" name="password"><br><br>
+
+    <input type="submit" value="Register">
+</form>
+
+<p>Already have an account? <a href="login.php">Login here</a></p>
+</body>
+</html>
