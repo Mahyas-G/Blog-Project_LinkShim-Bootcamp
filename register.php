@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newUser = [
             "id" => count($users) + 1,
             "username" => $username,
-            "password" => $password // For practice (no hash)
+            "password" => $password
         ];
         $users[] = $newUser;
         file_put_contents("data/users.json", json_encode($users, JSON_PRETTY_PRINT));
