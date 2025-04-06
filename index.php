@@ -1,6 +1,7 @@
 <?php
 $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@ $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/po
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+<div class="container">
 <h2>All Blog Posts</h2>
 
 <?php
@@ -24,6 +25,6 @@ if (empty($posts)) {
     }
 }
 ?>
-
+</div>
 </body>
 </html>
