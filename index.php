@@ -1,7 +1,6 @@
 <?php
 $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
