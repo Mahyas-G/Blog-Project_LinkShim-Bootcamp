@@ -7,7 +7,6 @@ if (!isset($_SESSION['user'])) {
 
 $username = $_SESSION['user']['username'];
 
-// Load posts
 $posts = [];
 if (file_exists("data/posts.json")) {
     $posts = json_decode(file_get_contents("data/posts.json"), true);
