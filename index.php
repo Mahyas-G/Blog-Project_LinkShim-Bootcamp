@@ -10,6 +10,7 @@ $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/po
 </head>
 <body>
 <div class="container">
+    <?php include 'includes/header.php'; ?>
 <h2>All Blog Posts</h2>
 
 <?php
