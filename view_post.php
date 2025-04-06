@@ -9,8 +9,7 @@ $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/po
 
 foreach ($posts as $post) {
     if ($post['id'] === $postId) {
-        // Mark post as "read" using a cookie
-        setcookie("read_post_$postId", "1", time() + (86400 * 30), "/"); // 30 days
+        setcookie("read_post_$postId", "1", time() + (86400 * 30), "/"); 
         $foundPost = $post;
         break;
     }
