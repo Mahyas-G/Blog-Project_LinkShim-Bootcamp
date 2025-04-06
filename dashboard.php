@@ -21,11 +21,14 @@ if (file_exists("data/posts.json")) {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container">
 
 <?php include 'includes/header.php'; ?>
 
 <h2>Your Posts</h2>
-<a href="add_post.php">+ Add New Post</a>
+<a href="add_post.php" style="text-align: center;">+ Add New Post</a>
+<br>
+<br>
 
 <?php
 $userPosts = array_filter($posts, fn($post) => $post['author'] === $username);
@@ -42,6 +45,6 @@ if (empty($userPosts)) {
     }
 }
 ?>
-
+</div>
 </body>
 </html>
