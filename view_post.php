@@ -29,6 +29,7 @@ if (!isset($foundPost)) {
 </head>
 <body>
 <div class="container">
+    <?php include 'includes/header.php'; ?>
 <h2><?= htmlspecialchars($foundPost['title']) ?></h2>
 <p><small>By <?= htmlspecialchars($foundPost['author']) ?> on <?= $foundPost['created_at'] ?></small></p>
 <p><?= nl2br(htmlspecialchars($foundPost['content'])) ?></p>
