@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// If already logged in
 if (isset($_SESSION['user'])) {
     header("Location: dashboard.php");
     exit;
 }
 
-// Load users from JSON file
 $users = [];
 if (file_exists("data/users.json")) {
     $users = json_decode(file_get_contents("data/users.json"), true);
@@ -18,14 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Simple validation
     if ($username === '' || $password === '') {
         $errors[] = "Username and password are required.";
     } else {
         $found = false;
         foreach ($users as $user) {
             if ($user['username'] === $username && $user['password'] === $password) {
-                $_SESSION['user'] = $user; // Save full user data in session
+                $_SESSION['user'] = $user;
                 header("Location: dashboard.php");
                 exit;
             }
