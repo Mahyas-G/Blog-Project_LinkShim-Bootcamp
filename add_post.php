@@ -18,13 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        // Load existing posts
         $posts = [];
         if (file_exists("data/posts.json")) {
             $posts = json_decode(file_get_contents("data/posts.json"), true);
         }
 
-        // Get new ID
         $newId = count($posts) > 0 ? end($posts)['id'] + 1 : 1;
 
         $newPost = [
