@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container">
 <h2>Login</h2>
 
 <?php
@@ -61,5 +62,6 @@ foreach ($errors as $error) {
 </form>
 
 <p>Don’t have an account? <a href="register.php">Register here</a></p>
+</div>
 </body>
 </html>
