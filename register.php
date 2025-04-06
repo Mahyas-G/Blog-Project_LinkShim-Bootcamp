@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newUser = [
             "id" => count($users) + 1,
             "username" => $username,
-            "password" => $password
+            "password" => $password // For practice (no hash)
         ];
         $users[] = $newUser;
         file_put_contents("data/users.json", json_encode($users, JSON_PRETTY_PRINT));
@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container">
 <h2>Register</h2>
 
 <?php
@@ -71,5 +72,6 @@ foreach ($errors as $error) {
 </form>
 
 <p>Already have an account? <a href="login.php">Login here</a></p>
+</div>
 </body>
 </html>
