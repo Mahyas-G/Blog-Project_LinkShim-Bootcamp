@@ -28,12 +28,12 @@ if (!isset($foundPost)) {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+<div class="container">
 <h2><?= htmlspecialchars($foundPost['title']) ?></h2>
 <p><small>By <?= htmlspecialchars($foundPost['author']) ?> on <?= $foundPost['created_at'] ?></small></p>
 <p><?= nl2br(htmlspecialchars($foundPost['content'])) ?></p>
 
 <p><a href="index.php">← Back to all posts</a></p>
-
+</div>
 </body>
 </html>
