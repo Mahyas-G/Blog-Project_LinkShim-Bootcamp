@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// If user is already logged in, redirect
 if (isset($_SESSION['user'])) {
     header("Location: dashboard.php");
     exit;
 }
 
-// Load existing users
 $users = [];
 if (file_exists("data/users.json")) {
     $users = json_decode(file_get_contents("data/users.json"), true);
@@ -18,12 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Simple validation
     if ($username === '' || $password === '') {
         $errors[] = "Username and password are required.";
     }
 
-    // Check if username exists
     foreach ($users as $user) {
         if ($user['username'] === $username) {
             $errors[] = "Username already taken.";
@@ -35,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newUser = [
             "id" => count($users) + 1,
             "username" => $username,
-            "password" => $password // For practice (no hash)
+            "password" => $password 
         ];
         $users[] = $newUser;
         file_put_contents("data/users.json", json_encode($users, JSON_PRETTY_PRINT));
