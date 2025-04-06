@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+<div class="container">
 <?php include 'includes/header.php'; ?>
 
 <h2>Add New Post</h2>
@@ -69,6 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <input type="submit" value="Post">
 </form>
-
+</div>
 </body>
 </html>
