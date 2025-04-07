@@ -5,18 +5,16 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
+
 $errors = [];
 $title = '';
 $content = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
-
     if ($title === '' || $content === '') {
         $errors[] = "Both title and content are required.";
     }
-
     if (empty($errors)) {
         $posts = [];
         if (file_exists("data/posts.json")) {
@@ -24,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $newId = count($posts) > 0 ? end($posts)['id'] + 1 : 1;
-
         $newPost = [
             "id" => $newId,
             "title" => $title,
@@ -33,11 +30,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             "created_at" => date("Y-m-d H:i")
         ];
 
-        $posts[] = $newPost;
 
+        $posts[] = $newPost;
         file_put_contents("data/posts.json", json_encode($posts, JSON_PRETTY_PRINT));
         header("Location: dashboard.php");
         exit;
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Post</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+<?php include 'includes/header.php'; ?>
+<h2>Add New Post</h2>
+<form method="POST">
+    <label>Title:</label><br>
+    <input type="text" name="title" value="<?= htmlspecialchars($title) ?>"><br><br>
+    <label>Content:</label><br>
+    <textarea name="content" rows="5" cols="40"><?= htmlspecialchars($content) ?></textarea><br><br>
+    <input type="submit" value="Post">
+</form>
+</div>
+</body>
+</html>
+
