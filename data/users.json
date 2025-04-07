@@ -8,5 +8,15 @@
         "id": 2,
         "username": "Mahyas",
         "password": "p@ss"
+    },
+    {
+        "id": 3,
+        "username": "Parnia",
+        "password": "1234"
+    },
+    {
+        "id": 4,
+        "username": "Reza",
+        "password": "1234"
     }
 ]
