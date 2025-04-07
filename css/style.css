@@ -143,3 +143,8 @@ nav a {
 nav a:hover {
     color: #00a8ff;
 }
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
