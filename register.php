@@ -1,73 +1,39 @@
 <?php
-session_start();
-
-if (isset($_SESSION['user'])) {
-    header("Location: dashboard.php");
+if (!isset($_GET['id'])) {
+    header("Location: index.php");
     exit;
 }
 
-$users = [];
-if (file_exists("data/users.json")) {
-    $users = json_decode(file_get_contents("data/users.json"), true);
+$postId = (int)$_GET['id'];
+$posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
+
+foreach ($posts as $post) {
+    if ($post['id'] === $postId) {
+        setcookie("read_post_$postId", "1", time() + (86400 * 30), "/"); 
+        $foundPost = $post;
+        break;
+    }
 }
 
-$errors = [];
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-
-    if ($username === '' || $password === '') {
-        $errors[] = "Username and password are required.";
-    }
-
-    foreach ($users as $user) {
-        if ($user['username'] === $username) {
-            $errors[] = "Username already taken.";
-            break;
-        }
-    }
-
-    if (empty($errors)) {
-        $newUser = [
-            "id" => count($users) + 1,
-            "username" => $username,
-            "password" => $password 
-        ];
-        $users[] = $newUser;
-        file_put_contents("data/users.json", json_encode($users, JSON_PRETTY_PRINT));
-        header("Location: login.php");
-        exit;
-    }
+if (!isset($foundPost)) {
+    die("Post not found.");
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title><?= htmlspecialchars($foundPost['title']) ?></title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="container">
-<h2>Register</h2>
+    <?php include 'includes/header.php'; ?>
+<h2><?= htmlspecialchars($foundPost['title']) ?></h2>
+<p><small>By <?= htmlspecialchars($foundPost['author']) ?> on <?= $foundPost['created_at'] ?></small></p>
+<p><?= nl2br(htmlspecialchars($foundPost['content'])) ?></p>
 
-<?php
-foreach ($errors as $error) {
-    echo "<p style='color:red;'>$error</p>";
-}
-?>
-
-<form method="POST">
-    <label>Username:</label><br>
-    <input type="text" name="username"><br><br>
-
-    <label>Password:</label><br>
-    <input type="password" name="password"><br><br>
-
-    <input type="submit" value="Register">
-</form>
-
-<p>Already have an account? <a href="login.php">Login here</a></p>
+<p><a href="index.php">← Back to all posts</a></p>
 </div>
 </body>
 </html>
