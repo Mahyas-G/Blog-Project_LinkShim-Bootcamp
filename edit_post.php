@@ -12,3 +12,20 @@ if (!isset($_GET['id'])) {
 
 $postId = (int)$_GET['id'];
 $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
+
+$anyPost = flase;
+
+foreach ($posts as $index => $post) {
+    if ($post['id'] === $postId) {
+        if ($post['author'] !== $_SESSION['user']['username']) {
+            die("You can only edit your own posts.");
+        }
+        $anyPost = true;
+        $postIndex = $index;
+        break;
+    }
+}
+
+if (!$anyPost) {
+    die("Post not found.");
+}
