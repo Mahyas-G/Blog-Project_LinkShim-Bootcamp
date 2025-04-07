@@ -1,1 +1,15 @@
-
+/*<!--<div id="current_date">
+        <script>
+            document.getElementById("current_date").innerHTML = Date();
+        </script>
+    </div>-->
+    <div id="current_date">
+      <script>
+          const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          const date = new Date();
+          const dayName = daysOfWeek[date.getDay()];
+          document.getElementById("current_date").innerHTML = `${dayName}, ${date.toLocaleDateString()}`;
+      </script>
+  </div>*/
+  
+  /*use this code to add time in html code*/
