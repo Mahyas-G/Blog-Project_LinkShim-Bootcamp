@@ -53,3 +53,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Post</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+<?php include 'includes/header.php'; ?>
+
+<h2>Edit Post</h2>
+
+<?php foreach ($errors as $error): ?>
+    <p style="color:red;"><?= $error ?></p>
+<?php endforeach; ?>
+
+<form method="POST">
+    <label>Title:</label><br>
+    <input type="text" name="title" value="<?= htmlspecialchars($title) ?>"><br><br>
+
+    <label>Content:</label><br>
+    <textarea name="content" rows="5" cols="40"><?= htmlspecialchars($content) ?></textarea><br><br>
+
+    <input type="submit" value="Update">
+</form>
+</div>
+</body>
+</html>
