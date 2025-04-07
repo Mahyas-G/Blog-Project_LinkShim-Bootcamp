@@ -29,3 +29,27 @@ foreach ($posts as $index => $post) {
 if (!$anyPost) {
     die("Post not found.");
 }
+
+$title = $posts[$postIndex]['title'];
+$content = $posts[$postIndex]['content'];
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = trim($_POST['title']);
+    $content = trim($_POST['content']);
+
+    if ($title === '' || $content === '') {
+        $errors[] = "Both title and content are required.";
+    }
+
+    if (empty($errors)) {
+        $posts[$postIndex]['title'] = $title;
+        $posts[$postIndex]['content'] = $content;
+
+        file_put_contents("data/posts.json", json_encode($posts, JSON_PRETTY_PRINT));
+        header("Location: dashboard.php");
+        exit;
+    }
+}
+?>
+
