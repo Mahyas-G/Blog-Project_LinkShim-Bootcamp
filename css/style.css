@@ -1,18 +1,3 @@
-:root {
-    --primary-gradient-start: #d9afd9;
-    --primary-gradient-end: #97d9e1;
-    --secondary-gradient-start: #f6d365;
-    --secondary-gradient-end: #fda085;
-    --accent-color: #3b82f6;
-    --text-color: #2c3e50;
-    --light-text: #f8f9fa;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --blur-intensity: 8px;
-    --card-bg: rgba(255, 255, 255, 0.95);
-    --nav-bg: rgba(255, 255, 255, 0.9);
-    --border-radius: 16px;
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,17 +6,13 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(-45deg, 
-                var(--primary-gradient-start), 
-                var(--primary-gradient-end),
-                var(--secondary-gradient-start),
-                var(--secondary-gradient-end));
+    background: linear-gradient(-45deg, #d9afd9, #97d9e1, #f6d365, #fda085);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
-    color: var(--text-color);
-    line-height: 1.6;
-    min-height: 100vh;
+    color: #333;
     padding: 40px 20px;
+    display: flex;
+    justify-content: center;
 }
 
 @keyframes gradientBG {
@@ -43,82 +24,54 @@ body {
 .container {
     width: 100%;
     max-width: 700px;
-    margin: 0 auto;
-}
-
-nav {
-    background: var(--nav-bg);
-    padding: 15px 25px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 15px var(--shadow-color);
-    margin-bottom: 30px;
-    text-align: center;
-    backdrop-filter: blur(var(--blur-intensity));
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-nav a {
-    margin: 0 12px;
-    font-weight: 600;
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 8px 16px;
-    border-radius: 30px;
-}
-
-nav a:hover {
-    color: var(--accent-color);
-    background: rgba(59, 130, 246, 0.1);
-}
-
-h1, h2, h3 {
-    color: var(--text-color);
-    margin-bottom: 20px;
 }
 
 h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
     text-align: center;
-    font-size: 1.8em;
 }
 
 .post {
-    background: var(--card-bg);
-    padding: 25px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 8px 25px var(--shadow-color);
-    margin-bottom: 25px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(var(--blur-intensity));
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+    transition: transform 0.2s ease;
 }
 
 .post:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
 }
 
 .post h3 {
-    color: var(--text-color);
-    margin-bottom: 12px;
-    font-size: 1.3em;
+    color: #34495e;
+    margin-bottom: 10px;
 }
 
 .post small {
     display: block;
-    color: #7f8c8d;
+    color: #999;
     margin-bottom: 15px;
-    font-size: 0.9em;
+}
+
+a {
+    color: #1f78d1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 form {
-    background: var(--card-bg);
+    background: rgba(255, 255, 255, 0.95);
     padding: 25px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 8px 25px var(--shadow-color);
-    margin: 25px 0;
-    backdrop-filter: blur(var(--blur-intensity));
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    margin: 20px 0;
 }
 
 input[type=text],
@@ -126,21 +79,11 @@ input[type=password],
 textarea {
     width: 100%;
     padding: 14px;
-    margin: 10px 0 20px;
-    border: 1px solid #ddd;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 16px;
     background-color: #fdfdfd;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-input[type=text]:focus,
-input[type=password]:focus,
-textarea:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 textarea {
@@ -148,67 +91,49 @@ textarea {
     resize: vertical;
 }
 
-input[type=submit],
-.download-btn {
-    background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+input[type=submit] {
+    background: linear-gradient(to right, #00c9ff, #92fe9d);
     color: white;
     padding: 14px 28px;
     font-size: 16px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 10px 20px var(--shadow-color);
+    font-weight: bold;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    display: inline-block;
-    text-decoration: none;
 }
 
-input[type=submit]:hover,
-.download-btn:hover {
-    background: linear-gradient(to right, var(--secondary-gradient-start), var(--secondary-gradient-end));
-    transform: translateY(-3px);
-    box-shadow: 0 15px 25px var(--shadow-color);
-}
-
-a {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-a:hover {
-    color: #1a5fb4;
-    text-decoration: underline;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin: 25px 0;
+input[type=submit]:hover {
+    background: linear-gradient(to right, #92fe9d, #00c9ff);
+    transform: translateY(-2px);
 }
 
 p {
     margin-bottom: 15px;
-    line-height: 1.7;
 }
 
-@media (max-width: 768px) {
-    body {
-        padding: 20px 10px;
-    }
-    
-    .container {
-        max-width: 100%;
-    }
-    
-    nav a {
-        display: block;
-        margin: 8px 0;
-    }
-    
-    .post, form {
-        padding: 20px;
-    }
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+nav {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+nav a {
+    margin: 0 12px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+nav a:hover {
+    color: #00a8ff;
 }
