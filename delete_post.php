@@ -21,7 +21,7 @@ foreach ($posts as $index => $post) {
             die("You can only delete your own posts.");
         }
         unset($posts[$index]);
-        $posts = array_values($posts); // Reindex
+        $posts = array_values($posts);
         file_put_contents("data/posts.json", json_encode($posts, JSON_PRETTY_PRINT));
         header("Location: dashboard.php");
         exit;
