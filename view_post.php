@@ -37,4 +37,3 @@ if (!isset($foundPost)) {
 </div>
 </body>
 </html>
-

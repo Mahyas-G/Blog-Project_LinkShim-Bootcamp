@@ -1,37 +1,31 @@
 <?php
-session_start();
+$posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Blog</title>
     <link rel="stylesheet" href="css/style.css">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
 </head>
 <body>
-
 <div class="container">
-    <h1>Welcome to our team blog</h1>
-    <p>Share your thoughts and discover others' stories.</p>
+    <?php include 'includes/header.php'; ?>
+<h2>All Blog Posts</h2>
 
-    <?php if (!isset($_SESSION['user'])): ?>
-        <a href="login.php" class="btn btn-login">Login</a>
-        <a href="register.php" class="btn btn-signup">Sign Up</a>
-    <?php else: ?>
-        <a href="dashboard.php" class="btn btn-login">Dashboard</a>
-        <a href="logout.php" class="btn btn-signup">Logout</a>
-    <?php endif; ?>
-
-    <div class="footer">
-        &copy; <?= date('Y') ?> OUR Blog Project
-    </div>
+<?php
+if (empty($posts)) {
+    echo "<p>No posts yet.</p>";
+} else {
+    foreach (array_reverse($posts) as $post) {
+        echo "<div class='post'>";
+        echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
+        echo "<p><small>By " . htmlspecialchars($post['author']) . " on " . $post['created_at'] . "</small></p>";
+        echo "<p><a href='view_post.php?id={$post['id']}'>Read More</a></p>";
+        echo "</div><hr>";
+    }
+}
+?>
 </div>
-
 </body>
 </html>
