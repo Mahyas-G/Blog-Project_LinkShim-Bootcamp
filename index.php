@@ -22,6 +22,9 @@ if (empty($posts)) {
         echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
         echo "<p><small>By " . htmlspecialchars($post['author']) . " on " . $post['created_at'] . "</small></p>";
         echo "<p><a href='view_post.php?id={$post['id']}'>Read More</a></p>";
+        if ($post['author'] == $_SESSION['user']['username']) {
+            echo "<p><a href='edit_post.php?id={$post['author']}'>Edit</a> </p>";
+        }
         echo "</div><hr>";
     }
 }
