@@ -3,22 +3,24 @@
         "id": 1,
         "username": "bahar",
         "password": "123",
-        "score": 1
+        "score": 2
     },
     {
         "id": 2,
         "username": "Mahyas",
         "password": "p@ss",
-        "score": 1
+        "score": 2
     },
     {
         "id": 3,
         "username": "Parnia",
-        "password": "1234"
+        "password": "1234",
+        "score": 2
     },
     {
         "id": 4,
         "username": "Reza",
-        "password": "1234"
+        "password": "1234",
+        "score": 2
     }
 ]
