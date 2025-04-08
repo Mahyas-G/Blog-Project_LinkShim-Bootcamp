@@ -2,73 +2,54 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
+    // اگر کاربر لاگین نکرده، اجازه ندیم
     header("Location: login.php");
     exit;
 }
 
 $username = $_SESSION['user']['username'];
-$post_id = isset($_GET['id']) ? (int)$_GET['id'] : null;
-$action = isset($_GET['action']) ? $_GET['action'] : null;
+$postId = $_GET['id'] ?? null;
+$action = $_GET['action'] ?? null;
 
-if (!$post_id || !in_array($action, ['like', 'dislike'])) {
-    exit("Invalid request.");
+if (!$postId || !in_array($action, ['like', 'dislike'])) {
+    header("Location: index.php");
+    exit;
 }
 
-// بارگذاری داده‌ها
-$posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
-$users = file_exists("data/users.json") ? json_decode(file_get_contents("data/users.json"), true) : [];
+// بارگیری پست‌ها
+$postsFile = "data/posts.json";
+$posts = file_exists($postsFile) ? json_decode(file_get_contents($postsFile), true) : [];
 
-// پردازش پست و رای‌دهی
+// پیدا کردن پست مورد نظر و اعمال رأی
 foreach ($posts as &$post) {
-    if ($post['id'] === $post_id) {
+    if ($post['id'] == $postId) {
+        if (!isset($post['likes'])) {
+            $post['likes'] = [];
+        }
 
-        // مقداردهی اولیه
-        if (!isset($post['likes'])) $post['likes'] = [];
-        if (!isset($post['score'])) $post['score'] = 0;
-
+        // رأی قبلی کاربر
         $previousVote = $post['likes'][$username] ?? null;
 
+        // اگر رأی قبلی با رأی جدید یکی بود، کاری نکن
         if ($previousVote === $action) {
-            // اگر قبلاً همون رای رو داده بود
             break;
         }
 
-        // اگر قبلاً رأی متفاوت داده بود، باید امتیاز اصلاح بشه
-        if ($previousVote === 'like') {
-            $post['score']--;
-        } elseif ($previousVote === 'dislike') {
-            $post['score']++;
-        }
-
-        // ثبت رأی جدید
-        if ($action === 'like') {
-            $post['score']++;
-        } elseif ($action === 'dislike') {
-            $post['score']--;
-        }
-
+        // اعمال رأی جدید
         $post['likes'][$username] = $action;
 
-        // همچنین امتیاز نویسنده رو آپدیت کنیم
-        foreach ($users as &$user) {
-            if ($user['username'] === $post['author']) {
-                if (!isset($user['score'])) $user['score'] = 0;
-
-                if ($previousVote === 'like') $user['score']--;
-                if ($previousVote === 'dislike') $user['score']++;
-
-                if ($action === 'like') $user['score']++;
-                if ($action === 'dislike') $user['score']--;
-            }
+        // حذف فیلد score اگر وجود داشت (ما از لایک‌ها مستقیم محاسبه می‌کنیم)
+        if (isset($post['score'])) {
+            unset($post['score']);
         }
 
         break;
     }
 }
 
-// ذخیره فایل‌ها
-file_put_contents("data/posts.json", json_encode($posts, JSON_PRETTY_PRINT));
-file_put_contents("data/users.json", json_encode($users, JSON_PRETTY_PRINT));
+// ذخیره پست‌ها
+file_put_contents($postsFile, json_encode($posts, JSON_PRETTY_PRINT));
 
+// بازگشت به صفحه قبل
 header("Location: index.php");
 exit;
