@@ -79,3 +79,24 @@ nav {
 nav a {
     margin: 0 10px;
 }
+
+.like-btn, .dislike-btn {
+    background: #0066cc;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    margin: 5px 5px 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.dislike-btn {
+    background: #cc0000;
+}
+.like-btn:disabled, .dislike-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.score-box {
+    font-weight: bold;
+    margin: 10px 0;
+}

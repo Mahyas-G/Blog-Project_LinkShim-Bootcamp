@@ -4,10 +4,10 @@ session_start();
 // دریافت پست‌ها
 $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
 
-// دریافت کاربران (برای نمایش امتیاز نویسنده)
+// دریافت کاربران برای نمایش امتیاز
 $users = file_exists("data/users.json") ? json_decode(file_get_contents("data/users.json"), true) : [];
 
-// تابع برای دریافت امتیاز کاربر
+// تابع برای دریافت امتیاز نویسنده
 function getUserScore($username, $users) {
     foreach ($users as $user) {
         if ($user['username'] === $username) {
@@ -39,18 +39,29 @@ function getUserScore($username, $users) {
             echo "<p><small>By " . htmlspecialchars($post['author']) . " (User Score: " . getUserScore($post['author'], $users) . ") on " . $post['created_at'] . "</small></p>";
             echo "<p><a href='view_post.php?id={$post['id']}'>Read More</a></p>";
 
-            // امتیاز پست
-            echo "<p class='score-box'>⭐ Score: " . ($post['score'] ?? 0) . "</p>";
+            // نمایش امتیاز پست
+            $score = $post['score'] ?? 0;
+            echo "<p class='score-box'>⭐ Score: $score</p>";
 
-            // دکمه لایک اگر کاربر وارد شده باشد
+            // لایک / دیسلایک اگر کاربر لاگین کرده
             if (isset($_SESSION['user'])) {
-                echo "<form method='GET' action='like_post.php'>";
+                $currentUser = $_SESSION['user']['username'];
+                $userVote = $post['likes'][$currentUser] ?? null;
+
+                echo "<form method='GET' action='like_post.php' style='display:inline;'>";
                 echo "<input type='hidden' name='id' value='{$post['id']}'>";
-                echo "<button type='submit' class='like-btn'>👍 Like</button>";
+                echo "<input type='hidden' name='action' value='like'>";
+                echo "<button type='submit' class='like-btn' " . ($userVote === 'like' ? 'disabled' : '') . ">👍 Like</button>";
+                echo "</form>";
+
+                echo "<form method='GET' action='like_post.php' style='display:inline;'>";
+                echo "<input type='hidden' name='id' value='{$post['id']}'>";
+                echo "<input type='hidden' name='action' value='dislike'>";
+                echo "<button type='submit' class='dislike-btn' " . ($userVote === 'dislike' ? 'disabled' : '') . ">👎 Dislike</button>";
                 echo "</form>";
             }
 
-            // دکمه ویرایش
+            // دکمه ویرایش اگر کاربر صاحب پست باشد
             if (isset($_SESSION['user']) && $post['author'] === $_SESSION['user']['username']) {
                 echo "<p><a href='edit_post.php?id={$post['id']}'>Edit</a></p>";
             }
