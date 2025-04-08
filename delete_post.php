@@ -20,6 +20,12 @@ foreach ($posts as $index => $post) {
         if ($post['author'] !== $_SESSION['user']['username']) {
             die("You can only delete your own posts.");
         }
+        
+        // Delete associated image file if it exists
+        if (!empty($post['image']) && file_exists($post['image'])) {
+            unlink($post['image']);
+        }
+        
         unset($posts[$index]);
         $posts = array_values($posts);
         file_put_contents("data/posts.json", json_encode($posts, JSON_PRETTY_PRINT));
