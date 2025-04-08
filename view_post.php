@@ -29,11 +29,18 @@ if (!isset($foundPost)) {
 <body>
 <div class="container">
     <?php include 'includes/header.php'; ?>
-<h2><?= htmlspecialchars($foundPost['title']) ?></h2>
-<p><small>By <?= htmlspecialchars($foundPost['author']) ?> on <?= $foundPost['created_at'] ?></small></p>
-<p><?= nl2br(htmlspecialchars($foundPost['content'])) ?></p>
+    <h2><?= htmlspecialchars($foundPost['title']) ?></h2>
+    <p><small>By <?= htmlspecialchars($foundPost['author']) ?> on <?= $foundPost['created_at'] ?></small></p>
+    
+    <?php if (!empty($foundPost['image'])): ?>
+        <div class="post-image">
+            <img src="<?= htmlspecialchars($foundPost['image']) ?>" alt="Post image" style="max-width: 100%; height: auto;">
+        </div>
+    <?php endif; ?>
+    
+    <p><?= nl2br(htmlspecialchars($foundPost['content'])) ?></p>
 
-<p><a href="index.php">← Back to all posts</a></p>
+    <p><a href="index.php">← Back to all posts</a></p>
 </div>
 </body>
 </html>
