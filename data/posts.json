@@ -6,7 +6,30 @@
         "author": "Reza",
         "created_at": "2025-04-08 15:26",
         "likes": {
-            "Reza": "like"
+            "Reza": "like",
+            "Mahyas": "like"
+        }
+    },
+    {
+        "id": 2,
+        "title": "Title",
+        "content": "Content: ...",
+        "author": "Mahyas",
+        "created_at": "2025-04-09 02:53",
+        "image": "uploads\/67f5c5062300c.png",
+        "likes": {
+            "Mahyas": "like"
+        }
+    },
+    {
+        "id": 3,
+        "title": "Rating Check",
+        "content": "Error after Submit!",
+        "author": "Mahyas",
+        "created_at": "2025-04-09 02:56",
+        "image": "",
+        "likes": {
+            "Mahyas": "dislike"
         }
     }
 ]

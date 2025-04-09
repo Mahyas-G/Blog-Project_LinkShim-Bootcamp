@@ -14,5 +14,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: view_post.php?id=$postId");
     exit;
 }
-//check
 ?>
