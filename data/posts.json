@@ -8,7 +8,8 @@
         "likes": {
             "Reza": "like",
             "Mahyas": "like"
-        }
+        },
+        "image": "uploads\/67f75595de56c.jpg"
     },
     {
         "id": 2,
@@ -27,9 +28,41 @@
         "content": "Error after Submit!",
         "author": "Mahyas",
         "created_at": "2025-04-09 02:56",
-        "image": "",
+        "image": "uploads\/67f5270feee45.jpg",
         "likes": {
             "Mahyas": "dislike"
         }
+    },
+    {
+        "id": 4,
+        "title": "new post",
+        "content": "first one",
+        "author": "Reza",
+        "created_at": "2025-04-10 06:51",
+        "image": ""
+    },
+    {
+        "id": 5,
+        "title": "new post",
+        "content": "post2",
+        "author": "Rezza",
+        "created_at": "2025-04-10 06:54",
+        "image": ""
+    },
+    {
+        "id": 6,
+        "title": "rwsg",
+        "content": "asgsbabds",
+        "author": "Reza",
+        "created_at": "2025-04-10 07:02",
+        "image": ""
+    },
+    {
+        "id": 7,
+        "title": "new",
+        "content": "\ud83d\ude02",
+        "author": "Reza",
+        "created_at": "2025-04-10 07:07",
+        "image": "uploads\/67f7520255f3a.jpg"
     }
 ]

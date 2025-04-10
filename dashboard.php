@@ -74,6 +74,10 @@ if (empty($posts)) {
         $postId = $post['id'];
         $postRatings = $ratings[$postId] ?? [];
         $averageRating = empty($postRatings) ? 0 : round(array_sum($postRatings) / count($postRatings), 1);
+//        echo 5- ceil($averageRating);
+//        echo $averageRating;
+//        echo "<br>";
+//        var_dump($postRatings);
         $userRating = $postRatings[$username] ?? null;
         
         echo "<div class='post'>";
@@ -91,7 +95,7 @@ if (empty($posts)) {
         echo "<span class='star-rating'>";
         echo str_repeat("★", floor($averageRating));
         echo (fmod($averageRating, 1) >= 0.5) ? "½" : "";
-        echo str_repeat("☆", 5 - ceil($averageRating));
+        echo str_repeat("☆", 10 - ceil($averageRating));
         echo "</span> ($averageRating/10)";
         echo "</p>";
         
