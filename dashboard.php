@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
 
 <?php include 'includes/header.php'; ?>
 
-<h2>All Posts</h2>
+<h2>My Posts</h2>
 <a href="add_post.php" class="btn">+ Add New Post</a>
 <br><br>
 
@@ -66,6 +66,11 @@ if (empty($posts)) {
     echo "<p>No posts available.</p>";
 } else {
     foreach ($posts as $post) {
+        // Only display posts where the current user is the author
+        if ($post['author'] !== $username) {
+            continue;
+        }
+        
         $postId = $post['id'];
         $postRatings = $ratings[$postId] ?? [];
         $averageRating = empty($postRatings) ? 0 : round(array_sum($postRatings) / count($postRatings), 1);
