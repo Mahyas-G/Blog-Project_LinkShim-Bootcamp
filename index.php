@@ -1,17 +1,20 @@
 <?php
-session_start(); 
+session_start();
 $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Blog</title>
+    <meta charset="UTF-8">
+    <title>The Blog</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<?php include 'includes/header.php'; ?>
+
 <div class="container">
-    <?php include 'includes/header.php'; ?>
     <h2>All Blog Posts</h2>
 
     <?php
@@ -33,5 +36,18 @@ $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/po
     }
     ?>
 </div>
+
+<!-- اسکریپت افکت کرکره‌ای -->
+<script>
+    window.addEventListener("scroll", function() {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 20) {
+            navbar.style.boxShadow = "0 4px 12px rgba(0,0,0,0.2)";
+        } else {
+            navbar.style.boxShadow = "0 4px 12px rgba(0,0,64,0.1)";
+        }
+    });
+</script>
+
 </body>
 </html>

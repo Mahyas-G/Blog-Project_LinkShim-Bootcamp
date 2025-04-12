@@ -1,0 +1,150 @@
+Index: index.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\nsession_start(); \r\n$posts = file_exists(\"data/posts.json\") ? json_decode(file_get_contents(\"data/posts.json\"), true) : [];\r\n?>\r\n\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title>My Blog</title>\r\n    <link rel=\"stylesheet\" href=\"css/style.css\">\r\n</head>\r\n<body>\r\n<div class=\"container\">\r\n    <?php include 'includes/header.php'; ?>\r\n    <h2>All Blog Posts</h2>\r\n\r\n    <?php\r\n    if (empty($posts)) {\r\n        echo \"<p>No posts yet.</p>\";\r\n    } else {\r\n        foreach (array_reverse($posts) as $post) {\r\n            echo \"<div class='post'>\";\r\n            echo \"<h3>\" . htmlspecialchars($post['title']) . \"</h3>\";\r\n            echo \"<p><small>By \" . htmlspecialchars($post['author']) . \" on \" . $post['created_at'] . \"</small></p>\";\r\n            echo \"<p><a href='view_post.php?id={$post['id']}'>Read More</a></p>\";\r\n\r\n            if (isset($_SESSION['user']) && $post['author'] === $_SESSION['user']['username']) {\r\n                echo \"<p><a href='edit_post.php?id={$post['id']}'>Edit</a></p>\";\r\n            }\r\n\r\n            echo \"</div><hr>\";\r\n        }\r\n    }\r\n    ?>\r\n</div>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/index.php b/index.php
+--- a/index.php	(revision 55082e442086bdf799eda31decc95158236a3eea)
++++ b/index.php	(date 1744116511425)
+@@ -1,6 +1,23 @@
+ <?php
+-session_start(); 
+-$posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
++session_start();
++
++// Load posts
++$postsFile = "data/posts.json";
++$posts = file_exists($postsFile) ? json_decode(file_get_contents($postsFile), true) : [];
++
++// Load users (to get author scores)
++$usersFile = "data/users.json";
++$users = file_exists($usersFile) ? json_decode(file_get_contents($usersFile), true) : [];
++
++// Function to get author's total score
++function getUserScore($username, $users) {
++    foreach ($users as $user) {
++        if ($user['username'] === $username) {
++            return $user['score'] ?? 0;
++        }
++    }
++    return 0;
++}
+ ?>
+ 
+ <!DOCTYPE html>
+@@ -19,11 +36,35 @@
+         echo "<p>No posts yet.</p>";
+     } else {
+         foreach (array_reverse($posts) as $post) {
++            $score = 0;
++            if (!empty($post['likes'])) {
++                foreach ($post['likes'] as $vote) {
++                    if ($vote === 'like') $score++;
++                    elseif ($vote === 'dislike') $score--;
++                }
++            }
++
+             echo "<div class='post'>";
+             echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
+-            echo "<p><small>By " . htmlspecialchars($post['author']) . " on " . $post['created_at'] . "</small></p>";
++            echo "<p><small>By " . htmlspecialchars($post['author']) . " (User Score: " . getUserScore($post['author'], $users) . ") on " . $post['created_at'] . "</small></p>";
+             echo "<p><a href='view_post.php?id={$post['id']}'>Read More</a></p>";
+ 
++            echo "<p class='score-box'>⭐ Score: $score</p>";
++
++            if (isset($_SESSION['user'])) {
++                echo "<form method='GET' action='like_post.php' style='display:inline-block;'>";
++                echo "<input type='hidden' name='id' value='{$post['id']}'>";
++                echo "<input type='hidden' name='action' value='like'>";
++                echo "<button type='submit' class='like-btn'>👍 Like</button>";
++                echo "</form>";
++
++                echo "<form method='GET' action='like_post.php' style='display:inline-block;'>";
++                echo "<input type='hidden' name='id' value='{$post['id']}'>";
++                echo "<input type='hidden' name='action' value='dislike'>";
++                echo "<button type='submit' class='dislike-btn'>👎 Dislike</button>";
++                echo "</form>";
++            }
++
+             if (isset($_SESSION['user']) && $post['author'] === $_SESSION['user']['username']) {
+                 echo "<p><a href='edit_post.php?id={$post['id']}'>Edit</a></p>";
+             }
+Index: css/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>body {\r\n    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n    line-height: 1.5;\r\n    margin: 0;\r\n    padding: 0;\r\n    background: url('img.jpg') no-repeat center center fixed;\r\n    background-size: cover;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    min-height: 100vh;\r\n}\r\n\r\n.container {\r\n    background-color: rgba(255, 255, 255, 0.95);\r\n    padding: 30px;\r\n    border-radius: 16px;\r\n    box-shadow: 0 8px 20px rgba(0, 0, 64, 0.4); \r\n    width: 100%;\r\n    max-width: 500px;\r\n    backdrop-filter: blur(4px);\r\n}\r\n\r\nh1, h2, h3 {\r\n    margin: 20px 0 10px 0;\r\n    color: #003366;\r\n    text-align: center;\r\n}\r\n\r\na {\r\n    color: #003366;\r\n    text-decoration: none;\r\n    font-weight: bold;\r\n}\r\na:hover {\r\n    text-decoration: underline;\r\n    color: #001f4d;\r\n}\r\n\r\ninput, textarea, button {\r\n    display: block;\r\n    width: 100%;\r\n    margin: 10px 0;\r\n    padding: 12px;\r\n    font-size: 16px;\r\n    border: 1px solid #ccc;\r\n    border-radius: 10px;\r\n}\r\n\r\ninput:focus, textarea:focus {\r\n    outline: none;\r\n    border-color: #003366;\r\n    box-shadow: 0 0 5px rgba(0, 51, 102, 0.4);\r\n}\r\n\r\nbutton {\r\n    background: #003366;\r\n    color: white;\r\n    border: none;\r\n    font-weight: bold;\r\n    transition: background 0.3s ease;\r\n}\r\n\r\nbutton:hover {\r\n    background: #001f4d;\r\n    cursor: pointer;\r\n}\r\n\r\n.post {\r\n    margin-bottom: 30px;\r\n    padding-bottom: 15px;\r\n    border-bottom: 1px solid #ddd;\r\n}\r\n\r\nnav {\r\n    margin-bottom: 30px;\r\n    text-align: center;\r\n}\r\nnav a {\r\n    margin: 0 10px;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/css/style.css b/css/style.css
+--- a/css/style.css	(revision 55082e442086bdf799eda31decc95158236a3eea)
++++ b/css/style.css	(date 1744118410886)
+@@ -79,3 +79,66 @@
+ nav a {
+     margin: 0 10px;
+ }
++
++.like-btn, .dislike-btn {
++    background: #0066cc;
++    color: white;
++    border: none;
++    padding: 6px 12px;
++    margin: 5px 5px 5px 0;
++    border-radius: 8px;
++    cursor: pointer;
++}
++.dislike-btn {
++    background: #cc0000;
++}
++.like-btn:disabled, .dislike-btn:disabled {
++    opacity: 0.5;
++    cursor: not-allowed;
++}
++.score-box {
++    font-weight: bold;
++    margin: 10px 0;
++}
++
++.like-btn, .dislike-btn {
++    background: #0066cc;
++    color: white;
++    border: none;
++    padding: 6px 12px;
++    margin: 5px 5px 5px 0;
++    border-radius: 8px;
++    cursor: pointer;
++}
++.dislike-btn {
++    background: #cc0000;
++}
++.like-btn:disabled, .dislike-btn:disabled {
++    opacity: 0.5;
++    cursor: not-allowed;
++}
++.score-box {
++    font-weight: bold;
++    margin: 10px 0;
++}
++
++.like-btn, .dislike-btn {
++    background: #0066cc;
++    color: white;
++    border: none;
++    padding: 6px 12px;
++    margin: 5px 5px 5px 0;
++    border-radius: 8px;
++    cursor: pointer;
++}
++.dislike-btn {
++    background: #cc0000;
++}
++.like-btn:disabled, .dislike-btn:disabled {
++    opacity: 0.5;
++    cursor: not-allowed;
++}
++.score-box {
++    font-weight: bold;
++    margin: 10px 0;
++}

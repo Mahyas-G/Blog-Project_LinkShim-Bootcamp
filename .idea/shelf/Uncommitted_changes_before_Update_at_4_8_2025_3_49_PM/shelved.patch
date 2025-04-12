@@ -1,0 +1,56 @@
+Index: index.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\nsession_start(); \r\n$posts = file_exists(\"data/posts.json\") ? json_decode(file_get_contents(\"data/posts.json\"), true) : [];\r\n?>\r\n\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title>My Blog</title>\r\n    <link rel=\"stylesheet\" href=\"css/style.css\">\r\n</head>\r\n<body>\r\n<div class=\"container\">\r\n    <?php include 'includes/header.php'; ?>\r\n    <h2>All Blog Posts</h2>\r\n\r\n    <?php\r\n    if (empty($posts)) {\r\n        echo \"<p>No posts yet.</p>\";\r\n    } else {\r\n        foreach (array_reverse($posts) as $post) {\r\n            echo \"<div class='post'>\";\r\n            echo \"<h3>\" . htmlspecialchars($post['title']) . \"</h3>\";\r\n            echo \"<p><small>By \" . htmlspecialchars($post['author']) . \" on \" . $post['created_at'] . \"</small></p>\";\r\n            echo \"<p><a href='view_post.php?id={$post['id']}'>Read More</a></p>\";\r\n\r\n            if (isset($_SESSION['user']) && $post['author'] === $_SESSION['user']['username']) {\r\n                echo \"<p><a href='edit_post.php?id={$post['id']}'>Edit</a></p>\";\r\n            }\r\n\r\n            echo \"</div><hr>\";\r\n        }\r\n    }\r\n    ?>\r\n</div>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/index.php b/index.php
+--- a/index.php	(revision 55082e442086bdf799eda31decc95158236a3eea)
++++ b/index.php	(date 1744114600911)
+@@ -1,6 +1,21 @@
+ <?php
+-session_start(); 
++session_start();
++
++// دریافت پست‌ها
+ $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
++
++// دریافت کاربران (برای نمایش امتیاز نویسنده)
++$users = file_exists("data/users.json") ? json_decode(file_get_contents("data/users.json"), true) : [];
++
++// تابع برای دریافت امتیاز کاربر
++function getUserScore($username, $users) {
++    foreach ($users as $user) {
++        if ($user['username'] === $username) {
++            return $user['score'] ?? 0;
++        }
++    }
++    return 0;
++}
+ ?>
+ 
+ <!DOCTYPE html>
+@@ -21,9 +36,21 @@
+         foreach (array_reverse($posts) as $post) {
+             echo "<div class='post'>";
+             echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
+-            echo "<p><small>By " . htmlspecialchars($post['author']) . " on " . $post['created_at'] . "</small></p>";
++            echo "<p><small>By " . htmlspecialchars($post['author']) . " (User Score: " . getUserScore($post['author'], $users) . ") on " . $post['created_at'] . "</small></p>";
+             echo "<p><a href='view_post.php?id={$post['id']}'>Read More</a></p>";
+ 
++            // امتیاز پست
++            echo "<p class='score-box'>⭐ Score: " . ($post['score'] ?? 0) . "</p>";
++
++            // دکمه لایک اگر کاربر وارد شده باشد
++            if (isset($_SESSION['user'])) {
++                echo "<form method='GET' action='like_post.php'>";
++                echo "<input type='hidden' name='id' value='{$post['id']}'>";
++                echo "<button type='submit' class='like-btn'>👍 Like</button>";
++                echo "</form>";
++            }
++
++            // دکمه ویرایش
+             if (isset($_SESSION['user']) && $post['author'] === $_SESSION['user']['username']) {
+                 echo "<p><a href='edit_post.php?id={$post['id']}'>Edit</a></p>";
+             }

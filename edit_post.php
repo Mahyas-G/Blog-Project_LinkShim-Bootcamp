@@ -46,22 +46,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         $fileType = $_FILES['image']['type'];
-        
+
         if (in_array($fileType, $allowedTypes)) {
             $uploadDir = 'uploads/';
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
-            
+
             // Delete old image if exists
             if (!empty($currentImage) && file_exists($currentImage)) {
                 unlink($currentImage);
             }
-            
+
             $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             $filename = uniqid() . '.' . $extension;
             $destination = $uploadDir . $filename;
-            
+
             if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
                 $currentImage = $destination;
             } else {
@@ -71,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[] = "Only JPG, PNG, and GIF images are allowed.";
         }
     } elseif (isset($_POST['remove_image']) && $_POST['remove_image'] === '1') {
-        // Remove existing image if requested
         if (!empty($currentImage) && file_exists($currentImage)) {
             unlink($currentImage);
         }
@@ -97,45 +96,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/style.css">
     <style>
         .current-image {
-            max-width: 300px;
+            max-width: 100%;
             margin: 10px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         .image-options {
-            margin: 15px 0;
+            margin: 20px 0;
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+            font-weight: bold;
+            background: #ffe6e6;
+            padding: 10px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-<div class="container">
+
 <?php include 'includes/header.php'; ?>
 
-<h2>Edit Post</h2>
+<div class="container">
+    <h2>Edit Post</h2>
 
-<?php foreach ($errors as $error): ?>
-    <p style="color:red;"><?= $error ?></p>
-<?php endforeach; ?>
+    <?php foreach ($errors as $error): ?>
+        <div class="error-message"><?= htmlspecialchars($error) ?></div>
+    <?php endforeach; ?>
 
-<form method="POST" enctype="multipart/form-data">
-    <label>Title:</label><br>
-    <input type="text" name="title" value="<?= htmlspecialchars($title) ?>"><br><br>
+    <form method="POST" enctype="multipart/form-data">
+        <label>Title:</label>
+        <input type="text" name="title" value="<?= htmlspecialchars($title) ?>">
 
-    <label>Content:</label><br>
-    <textarea name="content" rows="5" cols="40"><?= htmlspecialchars($content) ?></textarea><br><br><div class="image-options">
-        <?php if (!empty($currentImage)): ?>
-            <label>Current Image:</label><br>
-            <img src="<?= htmlspecialchars($currentImage) ?>" class="current-image"><br>
-            <label>
-                <input type="checkbox" name="remove_image" value="1"> Remove current image
-            </label><br><br>
-        <?php endif; ?>
-        
-        <label>New Image (optional):</label><br>
-        <input type="file" name="image" accept="image/jpeg, image/png, image/gif"><br>
-        <small>Leave blank to keep current image</small>
-    </div><br>
+        <label>Content:</label>
+        <textarea name="content" rows="5"><?= htmlspecialchars($content) ?></textarea>
 
-    <input type="submit" value="Update">
-</form>
+        <div class="image-options">
+            <?php if (!empty($currentImage)): ?>
+                <label>Current Image:</label><br>
+                <img src="<?= htmlspecialchars($currentImage) ?>" class="current-image"><br>
+                <label>
+                    <input type="checkbox" name="remove_image" value="1"> Remove current image
+                </label><br><br>
+            <?php endif; ?>
+
+            <label>New Image (optional):</label>
+            <input type="file" name="image" accept="image/jpeg, image/png, image/gif">
+            <small>Leave blank to keep current image</small>
+        </div>
+
+        <button type="submit">Update</button>
+    </form>
 </div>
+
 </body>
 </html>
