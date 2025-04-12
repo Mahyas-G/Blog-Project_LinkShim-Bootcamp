@@ -1,6 +1,16 @@
 <?php
 session_start();
 $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
+
+$searchQuery = isset($_GET['search']) ? strtolower(trim($_GET['search'])) : '';
+
+if (!empty($searchQuery)) {
+    $posts = array_filter($posts, function($post) use ($searchQuery) {
+        return strpos(strtolower($post['title']), $searchQuery) !== false ||
+            strpos(strtolower($post['author']), $searchQuery) !== false;
+    });
+}
+
 ?>
 
 <!DOCTYPE html>
