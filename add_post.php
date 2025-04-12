@@ -1,9 +1,12 @@
+
 <?php
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit;
 }
+
+require_once 'includes/image_functions.php';
 
 $errors = [];
 $title = '';
@@ -19,27 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle image upload
     $imagePath = '';
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        $fileType = $_FILES['image']['type'];
-        
-        if (in_array($fileType, $allowedTypes)) {
-            $uploadDir = 'uploads/';
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0755, true);
-            }
-            
-            $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-            $filename = uniqid() . '.' . $extension;
-            $destination = $uploadDir . $filename;
-            
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
-                $imagePath = $destination;
-            } else {
-                $errors[] = "Failed to upload image.";
-            }
+    if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
+        $imageResult = handleImageUpload($_FILES['image']);
+        if (!empty($imageResult['errors'])) {
+            $errors = array_merge($errors, $imageResult['errors']);
         } else {
-            $errors[] = "Only JPG, PNG, and GIF images are allowed.";
+            $imagePath = $imageResult['path'];
         }
     }
 
