@@ -9,6 +9,30 @@ $username = $_SESSION['user']['username'];
 $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
 $ratings = file_exists("data/ratings.json") ? json_decode(file_get_contents("data/ratings.json"), true) : [];
 
+//توابع مربوط به rating
+function getPostRatings($ratings, $postId) {
+    return $ratings[$postId] ?? [];
+}
+
+function calculateAverageRating($postRatings) {
+    if (empty($postRatings)) return 0;
+    return round(array_sum($postRatings) / count($postRatings), 1);
+}
+
+function getUserRating($postRatings, $username) {
+    return $postRatings[$username] ?? null;
+}
+
+function displayStarRating($rating) {
+    $stars = str_repeat("★", floor($rating));
+    if (fmod($rating, 1) >= 0.5) {
+        $stars .= "½";
+    }
+    $stars .= str_repeat("☆", 10 - ceil($rating));
+    return $stars;
+}
+
+//پردازش امتیازدهی
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['rating'])) {
     $postId = $_POST['post_id'];
     $rating = (int) $_POST['rating'];
@@ -36,6 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
             object-fit: cover;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
+        .star-rating {
+            font-size: 1.2em;
+            color: gold;
+        }
     </style>
 </head>
 <body>
@@ -54,9 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
             if ($post['author'] !== $username) continue;
 
             $postId = $post['id'];
-            $postRatings = $ratings[$postId] ?? [];
-            $averageRating = empty($postRatings) ? 0 : round(array_sum($postRatings) / count($postRatings), 1);
-            $userRating = $postRatings[$username] ?? null;
+            $postRatings = getPostRatings($ratings, $postId);
+            $averageRating = calculateAverageRating($postRatings);
+            $userRating = getUserRating($postRatings, $username);
 
             echo "<div class='post'>";
             echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
@@ -67,17 +95,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
             }
 
             echo "<div class='rating-info'>";
-            echo "<p>Average Rating: ";
-            echo "<span class='star-rating'>";
-            echo str_repeat("★", floor($averageRating));
-            echo (fmod($averageRating, 1) >= 0.5) ? "½" : "";
-            echo str_repeat("☆", 10 - ceil($averageRating));
-            echo "</span> ($averageRating/10)</p>";
+            echo "<p>Average Rating: <span class='star-rating'>" . displayStarRating($averageRating) . "</span> ($averageRating/10)</p>";
 
             if ($userRating !== null) {
-                echo "<p>Your Rating: ";
-                echo "<span class='star-rating'>" . str_repeat("★", $userRating) . str_repeat("☆", 10 - $userRating) . "</span>";
-                echo " ($userRating/10)</p>";
+                echo "<p>Your Rating: <span class='star-rating'>" . displayStarRating($userRating) . "</span> ($userRating/10)</p>";
             } else {
                 echo "<form method='POST' class='rating-form'>";
                 echo "<input type='hidden' name='post_id' value='$postId'>";
@@ -86,7 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
                 echo " <button type='submit' class='btn'>Submit</button>";
                 echo "</form>";
             }
-
             echo "</div>"; // end .rating-info
 
             echo "<div class='post-actions'>";
