@@ -5,6 +5,8 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
+require_once 'includes/image_functions.php';
+
 if (!isset($_GET['id'])) {
     header("Location: dashboard.php");
     exit;
@@ -44,31 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        $fileType = $_FILES['image']['type'];
-
-        if (in_array($fileType, $allowedTypes)) {
-            $uploadDir = 'uploads/';
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0755, true);
-            }
-
+        $imageResult = handleImageUpload($_FILES['image']);
+        if (!empty($imageResult['errors'])) {
+            $errors = array_merge($errors, $imageResult['errors']);
+        } else {
             // Delete old image if exists
             if (!empty($currentImage) && file_exists($currentImage)) {
                 unlink($currentImage);
             }
-
-            $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-            $filename = uniqid() . '.' . $extension;
-            $destination = $uploadDir . $filename;
-
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
-                $currentImage = $destination;
-            } else {
-                $errors[] = "Failed to upload image.";
-            }
-        } else {
-            $errors[] = "Only JPG, PNG, and GIF images are allowed.";
+            $currentImage = $imageResult['path'];
         }
     } elseif (isset($_POST['remove_image']) && $_POST['remove_image'] === '1') {
         if (!empty($currentImage) && file_exists($currentImage)) {
