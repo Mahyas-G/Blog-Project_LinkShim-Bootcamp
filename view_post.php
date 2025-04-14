@@ -152,9 +152,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
         } else {
             foreach ($comments as $comment) {
                 echo "<div class='comment'>";
-                echo "<p><strong>" . htmlspecialchars($comment['author']) . "</strong> <small>(" . $comment['created_at'] . ")</small></p>";
-                echo "<p>" . $comment['content'] . "</p>";
-                echo "</div><hr>";
+                echo "<p class='comment-author'>" . htmlspecialchars($comment['author']) .
+                    " <span class='comment-date'>(" . $comment['created_at'] . ")</span></p>";
+                echo "<p class='comment-content'>" . $comment['content'] . "</p>";
+                echo "</div>";
+                echo "<hr class='comment-separator'>";
             }
         }
 
