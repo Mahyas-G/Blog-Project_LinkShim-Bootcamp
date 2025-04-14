@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Comments">
+    <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Update viewPost">
       <change beforePath="$PROJECT_DIR$/view_post.php" beforeDir="false" afterPath="$PROJECT_DIR$/view_post.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +99,7 @@
       <workItem from="1744633401061" duration="4672000" />
       <workItem from="1744638949720" duration="100000" />
       <workItem from="1744660396457" duration="2954000" />
-      <workItem from="1744664696692" duration="80000" />
+      <workItem from="1744664696692" duration="372000" />
     </task>
     <task id="LOCAL-00001" summary="should be fix the part of the redirecting">
       <option name="closed" value="true" />
@@ -253,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744663767023</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Update viewPost">
+      <option name="closed" value="true" />
+      <created>1744664862586</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1744664862586</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,7 +292,8 @@
     <MESSAGE value="Update viewPost-btn" />
     <MESSAGE value="Update btn-rate" />
     <MESSAGE value="Comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comments" />
+    <MESSAGE value="Update viewPost" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update viewPost" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
