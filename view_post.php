@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
 <div class="container post-container">
     <h2><?= htmlspecialchars($foundPost['title']) ?></h2>
     <p><small>By <?= htmlspecialchars($foundPost['author']) ?> on <?= $foundPost['created_at'] ?></small></p>
-    
+
     <?php if (!empty($foundPost['image'])): ?>
         <div class="post-image-container">
             <img src="<?= htmlspecialchars($foundPost['image']) ?>" alt="Post image" class="post-image">
@@ -112,13 +112,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
     
     <div class="post-content">
         <?= nl2br(htmlspecialchars($foundPost['content'])) ?>
-    </div>
-
-    <div class="post-actions">
-        <?php if (isset($_SESSION['user']) && $foundPost['author'] === $_SESSION['user']['username']): ?>
-            <a href="edit_post.php?id=<?= $postId ?>" class="btn">Edit Post</a>
-        <?php endif; ?>
-        <a href="index.php" class="btn">← Back to all posts</a>
     </div>
 
     <div class="rating-section">
@@ -145,6 +138,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
         }
         ?>
     </div>
+
+    <div class="post-content">
+        <?php if (isset($_SESSION['user']) && $foundPost['author'] === $_SESSION['user']['username']): ?>
+            <a href="edit_post.php?id=<?= $postId ?>" >Edit Post</a>
+        <?php endif; ?>
+    </div>
+
+    <a href="index.php"> ← Back to all posts</a>
+
 </div>
 </body>
 </html>

@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
 
 <div class="container">
     <h2>My Posts</h2>
-    <a href="add_post.php" class="btn btn-add-post">+ Add New Post</a>
+    <a href="add_post.php">+ Add New Post</a>
 
     <?php
     if (empty($posts)) {
@@ -120,9 +120,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
             echo "</div>"; // end .rating-info
 
             echo "<div class='post-actions'>";
-            echo "<a href='view_post.php?id=$postId' class='btn'>View</a>";
-            echo "<a href='edit_post.php?id=$postId' class='btn'>Edit</a>";
-            echo "<a href='delete_post.php?id=$postId' class='btn' onclick='return confirm(\"Are you sure you want to delete this post?\")'>Delete</a>";
+            echo "<a href='view_post.php?id=$postId'>View </a>";
+            echo "<a href='edit_post.php?id=$postId'>Edit </a>";
+            echo "<a href='delete_post.php?id=$postId' onclick='return confirm(\"Are you sure you want to delete this post?\")'>Delete</a>";
             echo "</div>";
 
             echo "</div>"; // end .post
