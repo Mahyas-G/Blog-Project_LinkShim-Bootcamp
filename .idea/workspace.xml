@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Update btn-rate">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comments.php" beforeDir="false" afterPath="$PROJECT_DIR$/comments.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/img.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/css/img.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/comments.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/comments.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/comment_functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/comment_functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view_post.php" beforeDir="false" afterPath="$PROJECT_DIR$/view_post.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,6 +103,8 @@
       <workItem from="1744619989301" duration="3438000" />
       <workItem from="1744624162192" duration="1299000" />
       <workItem from="1744633401061" duration="4672000" />
+      <workItem from="1744638949720" duration="100000" />
+      <workItem from="1744660396457" duration="2530000" />
     </task>
     <task id="LOCAL-00001" summary="should be fix the part of the redirecting">
       <option name="closed" value="true" />

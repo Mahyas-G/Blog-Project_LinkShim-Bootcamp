@@ -115,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
     </div>
 
     <div class="rating-section">
+        <h3>Ratings</h3>
         <?php
         $postRatings = getPostRatings($ratings, $postId);
         $averageRating = calculateAverageRating($postRatings);
@@ -135,6 +136,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
             }
         } else {
             echo "<p><a href='login.php'>Log in</a> to rate this post.</p>";
+        }
+        ?>
+    </div>
+
+    <div class="comments-section">
+        <h3>Comments</h3>
+
+        <?php
+        require_once 'includes/comment_functions.php';
+
+        $comments = getComments($post['id']);
+        if (empty($comments)) {
+            echo "<p>No comments yet.</p>";
+        } else {
+            foreach ($comments as $comment) {
+                echo "<div class='comment'>";
+                echo "<p><strong>" . htmlspecialchars($comment['author']) . "</strong> <small>(" . $comment['created_at'] . ")</small></p>";
+                echo "<p>" . $comment['content'] . "</p>";
+                echo "</div><hr>";
+            }
+        }
+
+        if (isset($_SESSION['user'])) {
+            echo "<form method='post' action='comments.php' class='comment-form'>";
+            echo "<input type='hidden' name='post_id' value='" . $post['id'] . "'>";
+            echo "<textarea name='content' placeholder='Write your comment...' required></textarea>";
+            echo "<button type='submit' class='btn-rate'>Post Comment</button>";
+            echo "</form>";
+        } else {
+            echo "<div class='alert'>Please <a href='login.php'>login</a> to post a comment.</div>";
         }
         ?>
     </div>
