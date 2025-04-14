@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Update login">
+    <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Update Padding-top">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ratings.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/ratings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +97,8 @@
       <workItem from="1744263090241" duration="88000" />
       <workItem from="1744402688384" duration="300000" />
       <workItem from="1744619989301" duration="3438000" />
-      <workItem from="1744624162192" duration="1123000" />
+      <workItem from="1744624162192" duration="1299000" />
+      <workItem from="1744633401061" duration="1057000" />
     </task>
     <task id="LOCAL-00001" summary="should be fix the part of the redirecting">
       <option name="closed" value="true" />
@@ -194,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744624548394</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Update Padding-top">
+      <option name="closed" value="true" />
+      <created>1744625396660</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1744625396660</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,14 +229,15 @@
     <MESSAGE value="imp" />
     <MESSAGE value="Update css" />
     <MESSAGE value="Update login" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update login" />
+    <MESSAGE value="Update Padding-top" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Padding-top" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/dashboard.php</url>
-          <line>97</line>
+          <line>107</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
