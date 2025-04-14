@@ -35,6 +35,12 @@ if (!empty($searchQuery)) {
             echo "<div class='post'>";
             echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
 
+            if (!empty($post['image'])) {
+                echo "<div class='post-thumbnail'>";
+                echo "<img src='" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['title']) . "'>";
+                echo "</div>";
+            }
+
             $preview = strip_tags($post['content']);
             $preview = substr($preview, 0, 100);
             if (strlen($post['content']) > 100) {
