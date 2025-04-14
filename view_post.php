@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -38,7 +37,7 @@ function displayStarRating($rating) {
 $foundPost = null;
 foreach ($posts as $post) {
     if ($post['id'] === $postId) {
-        setcookie("read_post_$postId", "1", time() + (86400 * 30), "/"); 
+        setcookie("read_post_$postId", "1", time() + (86400 * 30), "/");
         $foundPost = $post;
         break;
     }
@@ -52,7 +51,7 @@ if (!$foundPost) {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['rating'])) {
     $username = $_SESSION['user']['username'];
     $rating = (int) $_POST['rating'];
-    
+
     if ($rating >= 1 && $rating <= 10) {
         $ratings[$postId][$username] = $rating;
         file_put_contents("data/ratings.json", json_encode($ratings, JSON_PRETTY_PRINT));
@@ -109,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
             <img src="<?= htmlspecialchars($foundPost['image']) ?>" alt="Post image" class="post-image">
         </div>
     <?php endif; ?>
-    
+
     <div class="post-content">
         <?= nl2br(htmlspecialchars($foundPost['content'])) ?>
     </div>
@@ -142,7 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
 
     <div class="comments-section">
         <h3>Comments</h3>
-
         <?php
         require_once 'includes/comment_functions.php';
 
@@ -179,7 +177,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
     </div>
 
     <a href="index.php"> ← Back to all posts</a>
-
 </div>
 </body>
 </html>
