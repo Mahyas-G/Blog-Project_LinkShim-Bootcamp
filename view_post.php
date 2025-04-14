@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
                 echo "<form method='POST'>";
                 echo "<label for='rating'>Rate this post (1–10):</label> ";
                 echo "<input type='number' name='rating' min='1' max='10' required> ";
-                echo "<button type='submit' class='btn'>Submit Rating</button>";
+                echo "<button type='submit' class='btn-rate'>Submit Rating</button>";
                 echo "</form>";
             }
         } else {
