@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Update Submit-btn">
+    <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Update viewPost-btn">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view_post.php" beforeDir="false" afterPath="$PROJECT_DIR$/view_post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +97,7 @@
       <workItem from="1744402688384" duration="300000" />
       <workItem from="1744619989301" duration="3438000" />
       <workItem from="1744624162192" duration="1299000" />
-      <workItem from="1744633401061" duration="3068000" />
+      <workItem from="1744633401061" duration="3604000" />
     </task>
     <task id="LOCAL-00001" summary="should be fix the part of the redirecting">
       <option name="closed" value="true" />
@@ -219,7 +219,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744636064712</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Update viewPost-btn">
+      <option name="closed" value="true" />
+      <created>1744636638693</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1744636638693</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Update viewPost-btn">
+      <option name="closed" value="true" />
+      <created>1744636799501</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1744636799501</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,7 +263,8 @@
     <MESSAGE value="Update Padding-top" />
     <MESSAGE value="Update Dashboard" />
     <MESSAGE value="Update Submit-btn" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Submit-btn" />
+    <MESSAGE value="Update viewPost-btn" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update viewPost-btn" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -183,12 +183,11 @@ input:focus, textarea:focus {
 .btn-login { background-color: #8e44ad; }
 .btn-login:hover { background-color: #9b59b6; }
 
-.btn-rate { background-color: #434347
-}
-.btn-rate:hover { background-color: #37373a; }
+.btn-rate { background-color: #5e5b5b; }
+.btn-rate:hover { background-color: #505051; }
 .btn-rate {
-    font-size: 13px;
-    color: #ffffff;
+    font-size: 14px;
+    color: white;
 }
 
 /* Posts */
