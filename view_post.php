@@ -95,17 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
             color: gold;
             margin: 5px 0;
         }
-        .btn {
-            padding: 8px 16px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: #0069d9;
-        }
     </style>
 </head>
 <body>
