@@ -2,15 +2,16 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.5;
-    margin: 0;
-    padding: 0;
+    margin: 0 auto;
+    padding: 80px 20px;
     background: url('img.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding-top: 80px;
+    max-width: 1200px;
+    overflow-x: hidden;
 }
 
 /* Container */
@@ -62,7 +63,7 @@ input:focus, textarea:focus {
     box-shadow: 0 0 5px rgba(0, 51, 102, 0.4);
 }
 
-button {
+.form-button {
     background: #003366;
     color: white;
     border: none;
@@ -70,7 +71,7 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.form-button:hover {
     background: #001f4d;
 }
 
@@ -216,7 +217,6 @@ button:hover {
     display: block;
     color: #666;
     margin-bottom: 15px;
-    text-align: center;
 }
 
 .post-preview {
@@ -229,18 +229,27 @@ button:hover {
     text-align: justify;
 }
 
-.post a {
-    display: inline-block;
+.post a.read-more,
+.post a.edit {
+    display: inline;
     margin: 5px;
-    padding: 8px 15px;
-    background: #4285f4;
-    color: white;
-    border-radius: 4px;
+    padding: 0;
+    background: none;
+    color: #003366;
+    border-radius: 0;
+    font-weight: normal;
+    text-decoration: underline;
 }
 
-.post a:hover {
-    background: #3367d6;
-    text-decoration: none;
+.post a.read-more:hover,
+.post a.edit:hover {
+    background: none;
+    color: #001f4d;
+    text-decoration: underline;
+}
+
+.post a.edit {
+    opacity: 0.7;
 }
 
 /* Rating Buttons */
@@ -286,5 +295,11 @@ button:hover {
     .container {
         width: 90%;
         margin-top: 20px;
+    }
+
+    body {
+        padding-top: 60px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }

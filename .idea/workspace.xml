@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="imp">
+    <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Update css">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ratings.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/ratings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +96,7 @@
       <workItem from="1744260407625" duration="2642000" />
       <workItem from="1744263090241" duration="88000" />
       <workItem from="1744402688384" duration="300000" />
-      <workItem from="1744619989301" duration="1911000" />
+      <workItem from="1744619989301" duration="3438000" />
     </task>
     <task id="LOCAL-00001" summary="should be fix the part of the redirecting">
       <option name="closed" value="true" />
@@ -176,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744621866129</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Update css">
+      <option name="closed" value="true" />
+      <created>1744621986801</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1744621986801</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +209,8 @@
     <MESSAGE value="add the like and score option the project and fix the bug of number of the likes :)" />
     <MESSAGE value="fix the code by team" />
     <MESSAGE value="imp" />
-    <option name="LAST_COMMIT_MESSAGE" value="imp" />
+    <MESSAGE value="Update css" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update css" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
