@@ -146,6 +146,13 @@
     background-color: #9b59b6;
 }
 
+.post-preview {
+    color: #555;
+    margin: 8px 0;
+    line-height: 1.4;
+    font-size: 0.95em;
+}
+
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
