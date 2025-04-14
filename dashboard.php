@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
                 echo "<input type='hidden' name='post_id' value='$postId'>";
                 echo "<label for='rating'>Rate this post (1–10):</label> ";
                 echo "<input type='number' name='rating' min='1' max='10' required>";
-                echo " <button type='submit' class='btn'>Submit</button>";
+                echo "<button type='submit' class='btn-rate'>Submit</button>";
                 echo "</form>";
             }
             echo "</div>"; // end .rating-info

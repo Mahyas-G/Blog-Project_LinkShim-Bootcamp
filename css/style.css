@@ -183,6 +183,14 @@ input:focus, textarea:focus {
 .btn-login { background-color: #8e44ad; }
 .btn-login:hover { background-color: #9b59b6; }
 
+.btn-rate { background-color: #434347
+}
+.btn-rate:hover { background-color: #37373a; }
+.btn-rate {
+    font-size: 13px;
+    color: #ffffff;
+}
+
 /* Posts */
 .post {
     position: relative;
