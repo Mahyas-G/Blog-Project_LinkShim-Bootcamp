@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
             margin: 5px 0;
         }
         .btn {
-            padding: 8px 16px 0 ;
+            padding: 8px 16px;
             background: #007bff;
             color: white;
             border: none;
@@ -122,8 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
     <?php endif; ?>
     
     <div class="post-content">
-        <?= nl2br(htmlspecialchars($foundPost['content']));
-        echo "<br>  <br>"?>
+        <?= nl2br(htmlspecialchars($foundPost['content'])) ?>
     </div>
 
     <div class="post-actions">

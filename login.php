@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['user'])) {
-    header("Location: dashboard.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($users as $user) {
             if ($user['username'] === $username && $user['password'] === $password) {
                 $_SESSION['user'] = $user;
-                header("Location: dashboard.php");
+                header("Location: index.php");
                 exit;
             }
         }

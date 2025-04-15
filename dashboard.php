@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit;
@@ -9,21 +10,27 @@ $username = $_SESSION['user']['username'];
 $posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
 $ratings = file_exists("data/ratings.json") ? json_decode(file_get_contents("data/ratings.json"), true) : [];
 
-//توابع مربوط به rating
-function getPostRatings($ratings, $postId) {
+// توابع مربوط به rating
+function getPostRatings($ratings, $postId)
+{
     return $ratings[$postId] ?? [];
 }
 
-function calculateAverageRating($postRatings) {
-    if (empty($postRatings)) return 0;
+function calculateAverageRating($postRatings)
+{
+    if (empty($postRatings)) {
+        return 0;
+    }
     return round(array_sum($postRatings) / count($postRatings), 1);
 }
 
-function getUserRating($postRatings, $username) {
+function getUserRating($postRatings, $username)
+{
     return $postRatings[$username] ?? null;
 }
 
-function displayStarRating($rating) {
+function displayStarRating($rating)
+{
     $stars = str_repeat("★", floor($rating));
     if (fmod($rating, 1) >= 0.5) {
         $stars .= "½";
@@ -32,7 +39,7 @@ function displayStarRating($rating) {
     return $stars;
 }
 
-//پردازش امتیازدهی
+// پردازش امتیازدهی
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['rating'])) {
     $postId = $_POST['post_id'];
     $rating = (int) $_POST['rating'];
@@ -58,8 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
             margin: 10px 0;
             border-radius: 10px;
             object-fit: cover;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
         .star-rating {
             font-size: 1.2em;
             color: gold;
@@ -72,14 +80,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
 
 <div class="container">
     <h2>My Posts</h2>
-    <a href="add_post.php" class="btn btn-add-post">+ Add New Post</a>
+    <a href="add_post.php">+ Add New Post</a>
 
     <?php
     if (empty($posts)) {
         echo "<p>No posts available.</p>";
     } else {
         foreach ($posts as $post) {
-            if ($post['author'] !== $username) continue;
+            if ($post['author'] !== $username) {
+                continue;
+            }
 
             $postId = $post['id'];
             $postRatings = getPostRatings($ratings, $postId);
@@ -104,15 +114,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['ra
                 echo "<input type='hidden' name='post_id' value='$postId'>";
                 echo "<label for='rating'>Rate this post (1–10):</label> ";
                 echo "<input type='number' name='rating' min='1' max='10' required>";
-                echo " <button type='submit' class='btn'>Submit</button>";
+                echo "<button type='submit' class='btn-rate'>Submit Rating</button>";
                 echo "</form>";
             }
             echo "</div>"; // end .rating-info
 
             echo "<div class='post-actions'>";
-            echo "<a href='view_post.php?id=$postId' class='btn'>View</a>";
-            echo "<a href='edit_post.php?id=$postId' class='btn'>Edit</a>";
-            echo "<a href='delete_post.php?id=$postId' class='btn' onclick='return confirm(\"Are you sure you want to delete this post?\")'>Delete</a>";
+            echo "<a href='view_post.php?id=$postId'>View </a>";
+            echo "<a href='edit_post.php?id=$postId'>Edit </a>";
+            echo "<a href='delete_post.php?id=$postId' onclick='return confirm(\"Are you sure you want to delete this post?\")'>Delete</a>";
             echo "</div>";
 
             echo "</div>"; // end .post

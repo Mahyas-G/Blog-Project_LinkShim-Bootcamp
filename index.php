@@ -34,7 +34,22 @@ if (!empty($searchQuery)) {
         foreach (array_reverse($posts) as $post) {
             echo "<div class='post'>";
             echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
+
+            if (!empty($post['image'])) {
+                echo "<div class='post-thumbnail'>";
+                echo "<img src='" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['title']) . "'>";
+                echo "</div>";
+            }
+
+            $preview = strip_tags($post['content']);
+            $preview = substr($preview, 0, 100);
+            if (strlen($post['content']) > 100) {
+                $preview .= '...';
+            }
+            echo "<p class='post-preview'>" . htmlspecialchars($preview) . "</p>";
+
             echo "<p><small>By " . htmlspecialchars($post['author']) . " on " . $post['created_at'] . "</small></p>";
+
             echo "<p><a href='view_post.php?id={$post['id']}'>Read More</a></p>";
 
             if (isset($_SESSION['user']) && $post['author'] === $_SESSION['user']['username']) {
