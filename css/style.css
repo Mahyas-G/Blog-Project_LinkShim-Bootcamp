@@ -72,6 +72,7 @@
 
 
 .navbar-right {
+    border-radius: 20px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -148,11 +149,11 @@
 
 
 body {
+    background: url('./../assets/first_bg_pic.jpg') no-repeat center center fixed;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.5;
     margin: 0;
     padding: 0;
-    background: url('img.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;

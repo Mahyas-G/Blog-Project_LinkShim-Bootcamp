@@ -98,6 +98,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 10px;
             border-radius: 10px;
         }
+        input[type="text"], textarea, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #003366;
+            box-shadow: 0 0 5px rgba(0, 51, 102, 0.4);
+        }
+        button {
+            background: #003366;
+            color: white;
+            border: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            padding: 10px 20px;
+        }
+        button:hover {
+            background: #001f4d;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>

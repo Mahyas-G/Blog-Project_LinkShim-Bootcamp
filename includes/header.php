@@ -16,6 +16,8 @@
     <!-- نوار ناوبری راست -->
     <div class="navbar-right">
         <?php if (isset($_SESSION['user'])): ?>
+            <a href="profile.php" class="btn">My Profile</a>
+            <a href="inbox.php" class="btn">📩 massages</a>
             <a href="dashboard.php" class="btn btn-dashboard">Dashboard</a>
             <a href="index.php" class="btn btn-home">Home</a>
             <a href="logout.php" class="btn btn-logout">Logout</a>
