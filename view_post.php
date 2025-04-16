@@ -15,11 +15,6 @@ function getPostRatings($ratings, $postId) {
     return $ratings[$postId] ?? [];
 }
 
-function calculateAverageRating($postRatings) {
-    if (empty($postRatings)) return 0;
-    return round(array_sum($postRatings) / count($postRatings), 1);
-}
-
 function getUserRating($postRatings, $username) {
     return $postRatings[$username] ?? null;
 }
@@ -31,6 +26,36 @@ function displayStarRating($rating) {
     }
     $stars .= str_repeat("☆", 10 - ceil($rating));
     return $stars;
+}
+
+// توابع ذخیره پست
+function getSavedPosts($userId) {
+    $savedFile = "data/saved_posts.json";
+    if (!file_exists($savedFile)) return [];
+    $allSaved = json_decode(file_get_contents($savedFile), true);
+    return $allSaved[$userId] ?? [];
+}
+
+function toggleSavePost($userId, $postId) {
+    $savedFile = "data/saved_posts.json";
+    $allSaved = file_exists($savedFile) ? json_decode(file_get_contents($savedFile), true) : [];
+
+    if (!isset($allSaved[$userId])) {
+        $allSaved[$userId] = [];
+    }
+
+    if (in_array($postId, $allSaved[$userId])) {
+        // حذف از ذخیره‌شده‌ها
+        $allSaved[$userId] = array_values(array_diff($allSaved[$userId], [$postId]));
+        $action = "removed";
+    } else {
+        // اضافه کردن
+        $allSaved[$userId][] = $postId;
+        $action = "saved";
+    }
+
+    file_put_contents($savedFile, json_encode($allSaved, JSON_PRETTY_PRINT));
+    return $action;
 }
 
 // یافتن پست
@@ -56,6 +81,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
         $ratings[$postId][$username] = $rating;
         file_put_contents("data/ratings.json", json_encode($ratings, JSON_PRETTY_PRINT));
     }
+    header("Location: view_post.php?id=$postId");
+    exit;
+}
+
+// پردازش ذخیره/حذف پست
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['toggle_save']) && isset($_SESSION['user'])) {
+    $username = $_SESSION['user']['username'];
+    toggleSavePost($username, $postId);
     header("Location: view_post.php?id=$postId");
     exit;
 }
@@ -89,8 +122,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
             <h3>Ratings</h3>
             <?php
             $postRatings = getPostRatings($ratings, $postId);
-            $averageRating = calculateAverageRating($postRatings);
-            echo "<p><strong>Average Rating:</strong> <span class='star-rating'>" . displayStarRating($averageRating) . "</span> ($averageRating/10)</p>";
 
             if (isset($_SESSION['user'])) {
                 $username = $_SESSION['user']['username'];
@@ -122,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
             } else {
                 foreach ($comments as $comment) {
                     echo "<div class='comment'>";
-                    echo "<p class='comment-author'>" . htmlspecialchars($comment['author']) .
+                    echo "<p class='comment-author'>" . htmlspecialchars($comment['author']) . 
                         " <span class='comment-date'>(" . $comment['created_at'] . ")</span></p>";
                     echo "<p class='comment-content'>" . $comment['content'] . "</p>";
                     echo "</div>";
@@ -142,12 +173,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user'], $_POST['ra
         </div>
 
         <div class="post-actions">
-            <?php if (isset($_SESSION['user']) && $foundPost['author'] === $_SESSION['user']['username']): ?>
-                <a href="edit_post.php?id=<?= $postId ?>" class="edit-link">Edit Post</a>
-            <?php endif; ?>
-            <br/>
-            <a href="index.php" class="back-link">← Back to all posts</a>
-        </div>
+        <?php if (isset($_SESSION['user']) && $foundPost['author'] === $_SESSION['user']['username']): ?>
+            <a href="edit_post.php?id=<?= $postId ?>" class="edit-link">Edit Post</a>
+        <?php endif; ?>
+
+        <?php
+        if (isset($_SESSION['user'])) {
+            $username = $_SESSION['user']['username'];
+            $savedPosts = getSavedPosts($username);
+            $isSaved = in_array($postId, $savedPosts);
+            echo "<form method='POST' style='display:inline; margin-top:10px;'>";
+            echo "<input type='hidden' name='toggle_save' value='1'>";
+            echo "<button type='submit' class='btn-rate'>" . ($isSaved ? "Unsave Post" : "Save Post") . "</button>";
+            echo "</form>";
+        
+            // دکمه رفتن به صفحه پست‌های ذخیره‌شده
+            echo "<br/>";
+            echo "<a href='saved_posts.php' class='btn-rate' style='margin-top:10px; display:inline-block;'>View Saved Posts</a>";
+        }
+        ?>
+
+    <br/>
+    <a href="index.php" class="back-link">← Back to all posts</a>
+</div>
+
     </div>
 </div>
 
