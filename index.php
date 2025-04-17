@@ -20,6 +20,28 @@ if (!empty($searchQuery)) {
     <title>The Blog</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<style>
+    .post-image-container {
+        width: 100%;
+        overflow: hidden;
+        margin: 10px 0;
+        border-radius: 10px;
+    }
+
+    .post-image {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .post-image:hover {
+        transform: scale(1.02);
+    }
+</style>
 <body>
 
 <?php include 'includes/header.php'; ?>
@@ -34,10 +56,11 @@ if (!empty($searchQuery)) {
         foreach (array_reverse($posts) as $post) {
             echo "<div class='post'>";
             echo "<h3>" . htmlspecialchars($post['title']) . "</h3>";
-
+            /* here we should fix the image weight and height.
+               because the css style not loaded to this file i don't know  but fix it to gather👍*/
             if (!empty($post['image'])) {
-                echo "<div class='post-thumbnail'>";
-                echo "<img src='" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['title']) . "'>";
+                echo "<div class='post-image-container'>";
+                echo "<img class='post-image' src='" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['title']) . "'>";
                 echo "</div>";
             }
 
