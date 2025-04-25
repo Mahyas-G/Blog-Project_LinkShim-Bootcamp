@@ -5,6 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ef4a85c-2a9c-45b9-adff-69c3f07f62ff" name="Changes" comment="Update viewPost">
+      <change afterPath="$PROJECT_DIR$/includes/db.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_3_49_PM.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_3_49_PM/img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_3_49_PM/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_01_PM.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_01_PM/img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_01_PM/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_50_PM.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_50_PM/img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_50_PM/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_57_PM.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_57_PM/img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_8_2025_4_57_PM/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_9_2025_3_08_PM.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_9_2025_3_08_PM/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/add_post.php" beforeDir="false" afterPath="$PROJECT_DIR$/add_post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/comments.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/posts.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ratings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/saved_posts.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/users.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/delete_post.php" beforeDir="false" afterPath="$PROJECT_DIR$/delete_post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit_post.php" beforeDir="false" afterPath="$PROJECT_DIR$/edit_post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/register.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view_post.php" beforeDir="false" afterPath="$PROJECT_DIR$/view_post.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +125,10 @@
       <workItem from="1744633401061" duration="4672000" />
       <workItem from="1744638949720" duration="100000" />
       <workItem from="1744660396457" duration="2954000" />
-      <workItem from="1744664696692" duration="372000" />
+      <workItem from="1744664696692" duration="1526000" />
+      <workItem from="1744744914349" duration="936000" />
+      <workItem from="1744893608648" duration="2264000" />
+      <workItem from="1745563598687" duration="5157000" />
     </task>
     <task id="LOCAL-00001" summary="should be fix the part of the redirecting">
       <option name="closed" value="true" />
@@ -261,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744664862586</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Update viewPost">
+      <option name="closed" value="true" />
+      <created>1744665100157</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1744665100157</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

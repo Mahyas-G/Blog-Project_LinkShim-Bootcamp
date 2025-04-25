@@ -6,10 +6,40 @@ if (isset($_SESSION['user'])) {
     exit;
 }
 
-$users = [];
-if (file_exists("data/users.json")) {
-    $users = json_decode(file_get_contents("data/users.json"), true);
+include 'includes/db.php';
+
+// اتصال به پایگاه داده
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "blog";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// بررسی اتصال
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
+// متغیر برای ذخیره داده‌ها
+$users = [];
+
+// کوئری برای گرفتن تمامی کاربران از پایگاه داده
+$sql = "SELECT * FROM users";
+$result = $conn->query($sql);
+
+// بررسی نتایج و اضافه کردن داده‌ها به آرایه $users
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $users[] = $row;
+    }
+} else {
+    echo "هیچ کاربری پیدا نشد.";
+}
+
+// بستن اتصال
+$conn->close();
+
 
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -10,28 +10,57 @@ if (!isset($_GET['id'])) {
     exit;
 }
 
-$postId = (int)$_GET['id'];
-$posts = file_exists("data/posts.json") ? json_decode(file_get_contents("data/posts.json"), true) : [];
+include 'includes/db.php';
 
-$found = false;
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "blog_project";
 
-foreach ($posts as $index => $post) {
-    if ($post['id'] === $postId) {
-        if ($post['author'] !== $_SESSION['user']['username']) {
-            die("You can only delete your own posts.");
-        }
-        
-        // Delete associated image file if it exists
-        if (!empty($post['image']) && file_exists($post['image'])) {
-            unlink($post['image']);
-        }
-        
-        unset($posts[$index]);
-        $posts = array_values($posts);
-        file_put_contents("data/posts.json", json_encode($posts, JSON_PRETTY_PRINT));
-        header("Location: dashboard.php");
-        exit;
-    }
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-die("Post not found.");
+$postId = (int)$_GET['id'];
+
+// Verify if the post exists and belongs to the logged-in user
+$sql = "SELECT * FROM posts WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $postId);
+$stmt->execute();
+$result = $stmt->get_result();
+$post = $result->fetch_assoc();
+$stmt->close();
+
+if (!$post) {
+    header("Location: dashboard.php");
+    exit;
+}
+
+if ($post['author'] !== $_SESSION['user']['username']) {
+    die("You can only delete your own posts.");
+}
+
+// Delete associated image if it exists
+if (!empty($post['image']) && file_exists($post['image'])) {
+    unlink($post['image']);
+}
+
+// Delete the post from the database
+$sql = "DELETE FROM posts WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $postId);
+
+if ($stmt->execute()) {
+    header("Location: dashboard.php");
+    exit;
+} else {
+    die("Error: " . $stmt->error);
+}
+
+$stmt->close();
+$conn->close();
+?>
