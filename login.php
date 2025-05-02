@@ -21,26 +21,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// متغیر برای ذخیره داده‌ها
-$users = [];
-
-// کوئری برای گرفتن تمامی کاربران از پایگاه داده
-$sql = "SELECT * FROM users";
-$result = $conn->query($sql);
-
-// بررسی نتایج و اضافه کردن داده‌ها به آرایه $users
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $users[] = $row;
-    }
-} else {
-    echo "هیچ کاربری پیدا نشد.";
-}
-
-// بستن اتصال
-$conn->close();
-
-
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
@@ -49,17 +29,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($username === '' || $password === '') {
         $errors[] = "Username and password are required.";
     } else {
-        $found = false;
-        foreach ($users as $user) {
-            if ($user['username'] === $username && $user['password'] === $password) {
+        // Get the user from the database securely
+        $sql = "SELECT * FROM users WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+
+            // Verify the password
+            if (password_verify($password, $user['password'])) {
                 $_SESSION['user'] = $user;
                 header("Location: index.php");
                 exit;
+            } else {
+                $errors[] = "Invalid username or password.";
             }
+        } else {
+            $errors[] = "Invalid username or password.";
         }
-        $errors[] = "Invalid username or password.";
     }
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>

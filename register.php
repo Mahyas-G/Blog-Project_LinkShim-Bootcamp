@@ -21,26 +21,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// متغیر برای ذخیره داده‌ها
-$users = [];
-
-// کوئری برای گرفتن تمامی کاربران از پایگاه داده
-$sql = "SELECT * FROM users";
-$result = $conn->query($sql);
-
-// بررسی نتایج و اضافه کردن داده‌ها به آرایه $users
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $users[] = $row;
-    }
-} else {
-    echo "هیچ کاربری پیدا نشد.";
-}
-
-// بستن اتصال
-$conn->close();
-
-
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
@@ -50,25 +30,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Username and password are required.";
     }
 
-    foreach ($users as $user) {
-        if ($user['username'] === $username) {
-            $errors[] = "Username already taken.";
-            break;
-        }
+    // Check if the username already exists
+    $sql = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $errors[] = "Username already taken.";
     }
 
     if (empty($errors)) {
-        $newUser = [
-            "id" => count($users) + 1,
-            "username" => $username,
-            "password" => $password
-        ];
-        $_SESSION['user'] = $newUser;
-        file_put_contents("data/users.json", json_encode($users, JSON_PRETTY_PRINT));
+        // Hash the password before saving it
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert the new user into the database securely
+        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ss', $username, $hashedPassword);
+        $stmt->execute();
+
+        // Set session for the user
+        $_SESSION['user'] = ['username' => $username];
         header("Location: dashboard.php");
         exit;
     }
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
