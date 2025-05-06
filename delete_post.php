@@ -12,7 +12,7 @@ if (!isset($_GET['id'])) {
 
 include 'includes/db.php';
 
-// Database connection
+
 $servername = "localhost";
 $username = "root";
 $password = "44413138";
@@ -26,7 +26,7 @@ if ($conn->connect_error) {
 
 $postId = (int)$_GET['id'];
 
-// Verify if the post exists and belongs to the logged-in user
+
 $sql = "SELECT * FROM posts WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $postId);
@@ -44,12 +44,10 @@ if ($post['author'] !== $_SESSION['user']['username']) {
     die("You can only delete your own posts.");
 }
 
-// Delete associated image if it exists
 if (!empty($post['image']) && file_exists($post['image'])) {
     unlink($post['image']);
 }
 
-// Delete the post from the database
 $sql = "DELETE FROM posts WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $postId);
