@@ -14,7 +14,7 @@ $posts = [];
 $ratings = []; // Initialize ratings array
 
 try {
-    // Get posts for the logged-in user
+    
     $sql = "SELECT * FROM posts WHERE author = ? ORDER BY created_at DESC";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
@@ -23,7 +23,7 @@ try {
     $posts = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
     
-    // If you're using ratings, load them here (optional)
+    
     if (file_exists("data/ratings.json")) {
         $ratings = json_decode(file_get_contents("data/ratings.json"), true) ?? [];
     }
@@ -31,7 +31,6 @@ try {
     die("Database error: " . $e->getMessage());
 }
 
-// Rating functions (keep these if you're using them)
 function getPostRatings($ratings, $postId) {
     return $ratings[$postId] ?? [];
 }
@@ -54,7 +53,6 @@ function displayStarRating($rating) {
     return $stars;
 }
 
-// Handle rating submission
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['post_id'], $_POST['rating'])) {
     $postId = $_POST['post_id'];
     $rating = (int) $_POST['rating'];
