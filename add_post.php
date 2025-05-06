@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 require_once 'includes/image_functions.php';
-require_once 'includes/db.php'; // Make sure this file exists with your DB connection
+require_once 'includes/db.php'; 
 
 $errors = [];
 $title = '';
@@ -17,8 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
     $author = $_SESSION['user']['username'];
-    
-    // Validate inputs
     if (empty($title)) {
         $errors[] = "Title is required.";
     }
@@ -26,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Content is required.";
     }
 
-    // Handle image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
         $imageResult = handleImageUpload($_FILES['image']);
         if (!empty($imageResult['errors'])) {
@@ -37,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        // Prepare SQL statement
         $sql = "INSERT INTO posts (title, content, author, image) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         
@@ -45,10 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Prepare failed: " . $conn->error);
         }
 
-        // Bind parameters
         $stmt->bind_param("ssss", $title, $content, $author, $imagePath);
 
-        // Execute and check for errors
         if ($stmt->execute()) {
             $_SESSION['success'] = "Post added successfully!";
             header("Location: dashboard.php");
