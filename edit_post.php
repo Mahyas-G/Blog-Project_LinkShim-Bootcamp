@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $postId) {
     }
 }
 
-// Update post details
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postId = (int)$_POST['id'];
     $title = trim($_POST['title']);
@@ -58,12 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $currentImage = $_POST['current_image'] ?? '';
     $removeImage = isset($_POST['remove_image']) && $_POST['remove_image'] === '1';
 
-    // Validate inputs
     if (empty($title) || empty($content)) {
         $errors[] = "Both title and content are required.";
     }
 
-    // Handle image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
         $imageResult = handleImageUpload($_FILES['image']);
         
@@ -84,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $currentImage = '';
     }
 
-    // Update the database if no errors
     if (empty($errors)) {
         $sql = "UPDATE posts SET title = ?, content = ?, image = ? WHERE id = ? AND author = ?";
         $stmt = $conn->prepare($sql);
