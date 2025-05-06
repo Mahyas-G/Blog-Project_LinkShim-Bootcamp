@@ -1,8 +1,7 @@
 <?php
-// view_post.php
-session_start(); // Retaining session start as per your request
 
-// Database connection
+session_start(); 
+
 $servername = "localhost";
 $username = "root";
 $password = "44413138";
@@ -17,7 +16,7 @@ if ($conn->connect_error) {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Fetch the post from the database
+
     $sql = "SELECT * FROM posts WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
