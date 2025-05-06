@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($username === '' || $password === '') {
         $errors[] = "Username and password are required.";
     } else {
-        // Get the user from the database securely
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $username);
@@ -39,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
 
-            // Verify the password
             if (password_verify($password, $user['password'])) {
                 $_SESSION['user'] = $user;
                 header("Location: index.php");
